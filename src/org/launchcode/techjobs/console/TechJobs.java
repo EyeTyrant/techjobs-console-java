@@ -1,6 +1,5 @@
 package org.launchcode.techjobs.console;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 /**
@@ -11,7 +10,7 @@ public class TechJobs {
     private static Scanner in = new Scanner(System.in);
 
     public static void main (String[] args) {
-
+        
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
         columnChoices.put("core competency", "Skill");
@@ -19,7 +18,7 @@ public class TechJobs {
         columnChoices.put("location", "Location");
         columnChoices.put("position type", "Position Type");
         columnChoices.put("all", "All");
-
+        
         // Top-level menu options
         HashMap<String, String> actionChoices = new HashMap<>();
         actionChoices.put("search", "Search");
@@ -33,7 +32,6 @@ public class TechJobs {
             String actionChoice = getUserSelection("View jobs by:", actionChoices);
 
             if (actionChoice.equals("list")) {
-
                 String columnChoice = getUserSelection("List", columnChoices);
 
                 if (columnChoice.equals("all")) {
@@ -43,7 +41,7 @@ public class TechJobs {
                     ArrayList<String> results = JobData.findAll(columnChoice);
 
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
-
+                    Collections.sort(results); // Sort results alphabetically
                     // Print list of skills, employers, etc
                     for (String item : results) {
                         System.out.println(item);
@@ -103,13 +101,11 @@ public class TechJobs {
             }
 
         } while(!validChoice);
-
         return choiceKeys[choiceIdx];
     }
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-
         if (someJobs.size() > 0) {
             for (HashMap<String, String> job : someJobs) {
                 System.out.println("*****");
